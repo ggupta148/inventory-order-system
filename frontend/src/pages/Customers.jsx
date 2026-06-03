@@ -6,9 +6,11 @@ import CustomerForm from "../components/CustomerForm";
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   async function load() {
     setCustomers(await getCustomers());
+    setLoading(false);
   }
 
   useEffect(() => { load(); }, []);
@@ -35,35 +37,58 @@ export default function Customers() {
     }
   }
 
+  function initials(name) {
+    return name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2);
+  }
+
   return (
-    <div>
-      <h1>Customers</h1>
-      <button onClick={() => setShowForm(true)}>+ Add Customer</button>
-      {showForm && (
-        <div style={{ margin: "1rem 0" }}>
-          <CustomerForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
-        </div>
-      )}
-      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
-        <thead>
-          <tr style={{ background: "#f3f4f6" }}>
-            <th style={th}>Name</th><th style={th}>Email</th><th style={th}>Phone</th><th style={th}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {customers.map((c) => (
-            <tr key={c.id}>
-              <td style={td}>{c.full_name}</td>
-              <td style={td}>{c.email}</td>
-              <td style={td}>{c.phone || "—"}</td>
-              <td style={td}><button onClick={() => handleDelete(c.id)}>Delete</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="page">
+      <div className="page-header">
+        <h1>Customers</h1>
+        <button className="btn-primary" onClick={() => setShowForm(true)}>+ Add Customer</button>
+      </div>
+
+      {showForm && <CustomerForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />}
+
+      <div className="table-card">
+        {loading ? (
+          <div style={{ padding: "2rem", textAlign: "center", color: "#64748b" }}>Loading…</div>
+        ) : customers.length === 0 ? (
+          <div style={{ padding: "3rem", textAlign: "center", color: "#94a3b8" }}>
+            <div style={{ fontSize: 48, marginBottom: "0.5rem" }}>👥</div>
+            <div>No customers yet.</div>
+          </div>
+        ) : (
+          <table>
+            <thead>
+              <tr><th>Customer</th><th>Email</th><th>Phone</th><th>Joined</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              {customers.map((c) => (
+                <tr key={c.id}>
+                  <td>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                      <div style={{
+                        width: 32, height: 32, borderRadius: "50%",
+                        background: "#eef2ff", color: "#4f46e5",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontWeight: 700, fontSize: 12, flexShrink: 0,
+                      }}>
+                        {initials(c.full_name)}
+                      </div>
+                      <span style={{ fontWeight: 500 }}>{c.full_name}</span>
+                    </div>
+                  </td>
+                  <td style={{ color: "#64748b" }}>{c.email}</td>
+                  <td style={{ color: "#64748b" }}>{c.phone || "—"}</td>
+                  <td style={{ color: "#64748b", fontSize: 12 }}>{new Date(c.created_at).toLocaleDateString()}</td>
+                  <td><button className="btn-danger" onClick={() => handleDelete(c.id)}>Delete</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }
-
-const th = { padding: "0.5rem", textAlign: "left", borderBottom: "2px solid #e5e7eb" };
-const td = { padding: "0.5rem", borderBottom: "1px solid #e5e7eb" };
