@@ -13,16 +13,18 @@ export default function Navbar() {
       display: "flex",
       alignItems: "center",
       gap: "0.25rem",
-      padding: "0 2rem",
-      height: 56,
+      padding: "0 1.25rem",
+      height: 52,
       background: "#fff",
       borderBottom: "1px solid #e2e8f0",
       boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
       position: "sticky",
       top: 0,
       zIndex: 100,
+      overflowX: "auto",
+      WebkitOverflowScrolling: "touch",
     }}>
-      <div style={{ fontWeight: 700, fontSize: "1rem", color: "#4f46e5", marginRight: "1.5rem", letterSpacing: "-0.02em" }}>
+      <div style={{ fontWeight: 700, fontSize: "1rem", color: "#4f46e5", marginRight: "1rem", letterSpacing: "-0.02em", flexShrink: 0 }}>
         InventoryOS
       </div>
       {NAV_LINKS.map(({ to, label, icon }) => (
@@ -34,7 +36,7 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             gap: "0.4rem",
-            padding: "0.4rem 0.85rem",
+            padding: "0.4rem 0.75rem",
             borderRadius: 8,
             textDecoration: "none",
             fontSize: 13,
@@ -42,6 +44,8 @@ export default function Navbar() {
             color: isActive ? "#4f46e5" : "#64748b",
             background: isActive ? "#eef2ff" : "transparent",
             transition: "all 0.15s",
+            flexShrink: 0,
+            whiteSpace: "nowrap",
           })}
         >
           <span style={{ fontSize: 14 }}>{icon}</span>

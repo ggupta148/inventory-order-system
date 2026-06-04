@@ -66,7 +66,7 @@ export default function Orders() {
         <OrderForm customers={customers} products={products} onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
       )}
 
-      <div className="table-card">
+      <div className="table-card table-scroll">
         {loading ? (
           <div style={{ padding: "2rem", textAlign: "center", color: "#64748b" }}>Loading…</div>
         ) : orders.length === 0 ? (

@@ -7,14 +7,29 @@ function StatCard({ label, value, icon, accent }) {
       background: "#fff",
       border: "1px solid #e2e8f0",
       borderRadius: 12,
-      padding: "1.5rem",
-      flex: "1 1 180px",
+      padding: "1.25rem 1.5rem",
+      flex: "1 1 150px",
       boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-      borderTop: `3px solid ${accent}`,
     }}>
-      <div style={{ fontSize: 28, marginBottom: 8 }}>{icon}</div>
-      <div style={{ fontSize: "2rem", fontWeight: 700, color: "#0f172a", lineHeight: 1 }}>{value}</div>
-      <div style={{ fontSize: 13, color: "#64748b", marginTop: 4 }}>{label}</div>
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        marginBottom: 10,
+      }}>
+        <span style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 36,
+          height: 36,
+          borderRadius: 8,
+          background: `${accent}18`,
+          fontSize: 18,
+        }}>{icon}</span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</span>
+      </div>
+      <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "#0f172a", lineHeight: 1 }}>{value}</div>
     </div>
   );
 }
@@ -43,7 +58,7 @@ export default function Dashboard() {
     <div className="page">
       <h1>Dashboard</h1>
 
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
         <StatCard label="Total Products" value={products.length} icon="📦" accent="#4f46e5" />
         <StatCard label="Total Customers" value={customers.length} icon="👥" accent="#0ea5e9" />
         <StatCard label="Total Orders" value={orders.length} icon="🛒" accent="#22c55e" />
@@ -72,6 +87,8 @@ export default function Dashboard() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                flexWrap: "wrap",
+                gap: "0.4rem",
                 padding: "0.6rem 0.75rem",
                 background: "#fff7f7",
                 borderRadius: 8,

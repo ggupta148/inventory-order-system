@@ -50,7 +50,7 @@ export default function Customers() {
 
       {showForm && <CustomerForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />}
 
-      <div className="table-card">
+      <div className="table-card table-scroll">
         {loading ? (
           <div style={{ padding: "2rem", textAlign: "center", color: "#64748b" }}>Loading…</div>
         ) : customers.length === 0 ? (

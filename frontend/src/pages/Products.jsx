@@ -63,7 +63,7 @@ export default function Products() {
         <ProductForm initial={editing} onSubmit={handleUpdate} onCancel={() => setEditing(null)} />
       )}
 
-      <div className="table-card">
+      <div className="table-card table-scroll">
         {loading ? (
           <div style={{ padding: "2rem", textAlign: "center", color: "#64748b" }}>Loading…</div>
         ) : products.length === 0 ? (

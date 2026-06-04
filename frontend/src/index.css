@@ -93,7 +93,7 @@ tbody tr:last-child td { border-bottom: none; }
 .badge-completed { background: #dcfce7; color: #166534; }
 .badge-cancelled { background: #f1f5f9; color: #475569; }
 
-.page { padding: 2rem; max-width: 1100px; margin: 0 auto; }
+.page { padding: 1.5rem; max-width: 1100px; margin: 0 auto; }
 
 .form-panel {
   background: var(--surface);
@@ -119,5 +119,35 @@ label { display: block; font-size: 12px; font-weight: 600; color: var(--text-mut
   overflow: hidden;
 }
 
-.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+/* On mobile, make table horizontally scrollable */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
 .page-header h1 { margin-bottom: 0; }
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  h1 { font-size: 1.35rem; }
+
+  .page { padding: 1rem; }
+
+  /* Navbar: scrollable horizontal list on small screens */
+  nav { padding: 0 1rem !important; overflow-x: auto; flex-wrap: nowrap !important; white-space: nowrap; }
+
+  /* Forms: single-column */
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid-1 { grid-column: auto; }
+
+  .form-panel { padding: 1rem; }
+
+  /* Tables: horizontal scroll wrapper needed — applied via .table-scroll in JSX */
+  table { min-width: 520px; }
+
+  /* Order item rows inside OrderForm */
+  .order-item-row { flex-wrap: wrap; }
+}
+
+/* ── Tablet ── */
+@media (max-width: 900px) {
+  .page { padding: 1.25rem; }
+}
